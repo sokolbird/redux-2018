@@ -1,11 +1,19 @@
-import { createStore, combineReducers } from 'redux';
+import { createStore, combineReducers, applyMiddleware } from 'redux';
+
+// middlewere
+const logger = function(store) {
+    return function(next) {
+        return function(action) {
+            console.log('state', store.getState());
+            console.log(action);
+            next(action)
+        }
+    }
+};
+
+
 
 const createId = () => Math.random();
-
-const initialState = {
-    books: [],
-    readers: [],
-};
 
 const books = (state = [], action) => {
     const { type, payload } = action;
@@ -22,10 +30,7 @@ const books = (state = [], action) => {
                 return item;
             });
         case 'REMOVE_BOOK':
-            return {
-                ...state,
-                books: state.filter(book => book.id !== payload)
-            };
+            return state.filter(book => book.id !== payload);
         default:
             return state;
     }
@@ -58,7 +63,12 @@ const reducer = combineReducers({
     readers: readers,
 });
 
-const store = createStore(reducer);
+const initialState = {
+    books: [],
+    readers: [],
+};
+
+const store = createStore(reducer, initialState, applyMiddleware(logger));
 
 const addBook = (bookName) => ({ type: 'ADD_BOOK', payload: bookName });
 const updateBook = (id, newName) => ({ type: 'UPDATE_BOOK', payload: { id, newName } });

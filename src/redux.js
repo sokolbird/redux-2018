@@ -1,4 +1,4 @@
-import { createStore, combineReducers, applyMiddleware } from 'redux';
+import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
 
 // middlewere
 const logger = function(store) {
@@ -58,6 +58,8 @@ const readers = (state = [], action) => {
     }
 };
 
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+
 const reducer = combineReducers({
     books: books,
     readers: readers,
@@ -68,7 +70,7 @@ const initialState = {
     readers: [],
 };
 
-const store = createStore(reducer, initialState, applyMiddleware(logger));
+const store = createStore(reducer, initialState, composeEnhancers(applyMiddleware(logger)));
 
 const addBook = (bookName) => ({ type: 'ADD_BOOK', payload: bookName });
 const updateBook = (id, newName) => ({ type: 'UPDATE_BOOK', payload: { id, newName } });

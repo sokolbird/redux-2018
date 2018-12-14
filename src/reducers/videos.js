@@ -21,7 +21,7 @@ export default function videosReducer(state = [], action) {
     }
 }
 
-export const addTodo = ({ title, url, tags }) => ({
+export const addVideo = ({ title, url, tags }) => ({
     type: ADD_VIDEO,
     payload: { title, url, tags },
 });

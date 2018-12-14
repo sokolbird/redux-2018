@@ -3,6 +3,7 @@ import { Provider } from 'react-redux';
 
 import './App.css';
 import List from './components/List';
+import Form from './containers/Form';
 
 import storeCreator from './store';
 
@@ -13,6 +14,7 @@ class App extends Component {
     return (
         <Provider store={store}>
             <div className="App">
+                <Form />
                 <List />
             </div>
         </Provider>

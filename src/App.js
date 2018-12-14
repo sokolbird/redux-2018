@@ -1,14 +1,21 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+import { Provider } from 'react-redux';
+
 import './App.css';
 import List from './components/List';
+
+import storeCreator from './store';
+
+const store = storeCreator();
 
 class App extends Component {
   render() {
     return (
-      <div className="App">
-        <List />
-      </div>
+        <Provider store={store}>
+            <div className="App">
+                <List />
+            </div>
+        </Provider>
     );
   }
 }

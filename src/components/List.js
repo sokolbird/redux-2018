@@ -17,12 +17,12 @@ export default class List extends PureComponent {
     static defaultProps = {
         items: [
             {
-                id: 1,
+                id: '1',
                 title: 'Video 1',
                 url: 'https://youtu.be/9FmXNWq3EZI',
             },
             {
-                id: 2,
+                id: '2',
                 title: 'Video 2',
                 url: 'https://youtu.be/OiXd9vZb1Lc',
             }
@@ -40,7 +40,7 @@ export default class List extends PureComponent {
             return (
                 <li key={id}>
                     <div className="title">{title}</div>
-                    <iframe src={createVideoUrl(videoId)} />
+                    <iframe src={createVideoUrl(videoId)} title={title} />
                 </li>
             )
         });
